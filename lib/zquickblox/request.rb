@@ -7,7 +7,7 @@ module ZQuickblox
     attr_reader :uri
 
     def initialize
-      endpoint = ZQuickblox.config.app_id || Request::API_ENDPOINT
+      endpoint = ZQuickblox.config.endpoint || Request::API_ENDPOINT
       @connection = Faraday.new(url: endpoint) do |faraday|
         faraday.request  :url_encoded
         faraday.response :logger
