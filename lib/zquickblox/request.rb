@@ -1,13 +1,14 @@
 module ZQuickblox
   class Request
-    API_ENDPOINT = ENV['QUICKBLOX_SERVER'] || "https://api.quickblox.com"
+    API_ENDPOINT = "https://api.quickblox.com"
 
     attr_accessor :params, :headers, :method, :response, :response_body, :errors
     attr_reader :connection
     attr_reader :uri
 
     def initialize
-      @connection = Faraday.new(url: Request::API_ENDPOINT) do |faraday|
+      endpoint = ZQuickblox.config.app_id || Request::API_ENDPOINT
+      @connection = Faraday.new(url: endpoint) do |faraday|
         faraday.request  :url_encoded
         faraday.response :logger
         faraday.adapter  Faraday.default_adapter
