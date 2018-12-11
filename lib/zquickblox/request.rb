@@ -1,6 +1,6 @@
 module ZQuickblox
   class Request
-    API_ENDPOINT = "https://api.quickblox.com"
+    API_ENDPOINT = ENV['QUICKBLOX_SERVER'] || "https://api.quickblox.com"
 
     attr_accessor :params, :headers, :method, :response, :response_body, :errors
     attr_reader :connection
