@@ -9,6 +9,7 @@ module ZQuickblox
     def initialize
       endpoint = ZQuickblox.config.endpoint || Request::API_ENDPOINT
       @connection = Faraday.new(url: endpoint) do |faraday|
+        faraday.request  :json
         faraday.request  :url_encoded
         faraday.response :logger
         faraday.adapter  Faraday.default_adapter
