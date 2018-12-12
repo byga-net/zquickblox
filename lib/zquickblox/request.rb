@@ -8,10 +8,10 @@ module ZQuickblox
     attr_reader :connection
     attr_reader :uri
 
-    def initialize
+    def initialize(content_type = nil)
       endpoint = ZQuickblox.config.endpoint || Request::API_ENDPOINT
       @connection = Faraday.new(url: endpoint) do |faraday|
-        faraday.request  :json
+        faraday.request  content_type if content_type.present?
         faraday.request  :url_encoded
         faraday.response :logger
         faraday.adapter  Faraday.default_adapter
