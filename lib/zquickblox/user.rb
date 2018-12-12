@@ -21,6 +21,14 @@ module ZQuickblox
         user = User.new(ZQuickblox::Util.symbolize_keys(request.response_body["user"]))
         return user
       end
+      
+      def update(login, password, id, params)
+        request = ZQuickblox::User::UpdateUserRequest.new(id, params)
+        run_request(request, login, password)
+        return nil if request.response.status == 404
+        user = User.new(ZQuickblox::Util.symbolize_keys(request.response_body["user"]))
+        return user
+      end
 
       def delete(login, password, id)
         request = ZQuickblox::User::DeleteUserRequest.new(id)
