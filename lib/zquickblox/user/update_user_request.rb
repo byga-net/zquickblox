@@ -2,7 +2,7 @@ module ZQuickblox
   module User
     class UpdateUserRequest < Request
       def initialize(id, params)
-        super()
+        super(:json)
         @uri = "/users/#{id}.json"
         @method = :put
         @params = params
