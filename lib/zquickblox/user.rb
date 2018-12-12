@@ -38,7 +38,7 @@ module ZQuickblox
 
     class User
       attr_accessor :id, :login, :password, :email, :blob_id, :external_user_id
-      attr_accessor :facebook_id, :twitter_id, :full_name, :phone, :website
+      attr_accessor :facebook_id, :twitter_id, :full_name, :phone, :website, :tag_list
 
       def initialize(params)
         @id               = params[:id]
@@ -52,6 +52,7 @@ module ZQuickblox
         @full_name        = params[:full_name]
         @phone            = params[:phone]
         @website          = params[:website]
+        @tag_list         = params[:tag_list]
       end
 
       def build_params
@@ -65,7 +66,8 @@ module ZQuickblox
           "user[twitter_id]":       @twitter_id,
           "user[full_name]":        @full_name,
           "user[phone]":            @phone,
-          "user[website]":          @website
+          "user[website]":          @website,
+          "user[tag_list]":         @tag_list
         }
       end
     end
