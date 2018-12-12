@@ -1,3 +1,5 @@
+require 'faraday_middleware'
+
 module ZQuickblox
   class Request
     API_ENDPOINT = "https://api.quickblox.com"
