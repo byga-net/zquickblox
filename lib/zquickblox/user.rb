@@ -24,6 +24,8 @@ module ZQuickblox
       end
       
       def update(login, password, id, params)
+        user = User.new(params)
+        params = user.build_params
         request = ZQuickblox::User::UpdateUserRequest.new(id, params)
         run_request(request, login, password)
         return nil if request.response.status == 404
