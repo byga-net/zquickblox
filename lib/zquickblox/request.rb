@@ -6,7 +6,7 @@ module ZQuickblox
     attr_reader :connection
     attr_reader :uri
 
-    def initialize()
+    def initialize(uri: nil, method: nil, params: nil)
       endpoint = ZQuickblox.config.endpoint || Request::API_ENDPOINT
       @connection = Faraday.new(url: endpoint) do |faraday|
         faraday.request  :url_encoded
@@ -14,7 +14,12 @@ module ZQuickblox
         faraday.adapter  Faraday.default_adapter
       end
 
-      @headers = {}
+      @headers = {
+          'QB-Account-Key' => ZQuickblox.config.account_key,
+      }.compact
+      @uri ||= uri
+      @method ||= method || :get
+      @params ||= params
     end
 
     def header(key, value)
@@ -55,6 +60,10 @@ module ZQuickblox
       end
 
       after_request
+    end
+
+    def response_body
+      @response_body
     end
 
     private

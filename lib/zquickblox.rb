@@ -20,6 +20,6 @@ module ZQuickblox
   end
 
   class Config
-    attr_accessor :app_id, :auth_key, :auth_secret, :endpoint
+    attr_accessor :app_id, :auth_key, :auth_secret, :endpoint, :account_key
   end
 end
