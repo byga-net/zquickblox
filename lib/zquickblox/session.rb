@@ -1,13 +1,14 @@
 module ZQuickblox
   class Session < Request
-    attr_accessor :login, :password
+    attr_accessor :login, :password, :config
     attr_reader :token, :session
 
     class << self
-      def create(login=nil, password=nil)
+      def create(login=nil, password=nil, config=ZQuickblox.config)
         session = ZQuickblox::Session.new
         session.login    = login
         session.password = password
+        session.config   = config
         session.execute
         return session
       end
@@ -33,14 +34,14 @@ module ZQuickblox
 
     def build_params
       @params = {
-        "application_id": ZQuickblox.config.app_id,
-        "auth_key": ZQuickblox.config.auth_key,
+        "application_id": @config.app_id,
+        "auth_key": @config.auth_key,
         "timestamp": Time.now.to_i,
         "nonce": rand(2000)
       }
       @params["user[login]"] = @login if @login
       @params["user[password]"] = @password if @password
-      @params["signature"] = ZQuickblox::Signature.generate_signature(@params, ZQuickblox.config.auth_secret)
+      @params["signature"] = ZQuickblox::Signature.generate_signature(@params, @config.auth_secret)
     end
   end
 end
